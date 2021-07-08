@@ -1,7 +1,8 @@
 ## Answers
 
-#What are the limitation/problems with this solution?
+# What are the limitation/problems with this solution?
 This solution loads the data in memory. So it only works for exploratory work on the dataset.
+Also the library I used to read VCF doesn't support spaces or tab in the column names. So I had to hack around it. Ideally would do something different for prod.
 
 # How would it scale?
 This can scale a little bit. Afterall, Pandas dataframe are uses with larger dataset then the one provided, however it should not be used for production. Since the task of the assignment is to search the records to match a query, the optimal answer is to store the data into a database. 
