@@ -2,11 +2,19 @@ import allel
 import pandas as pd
 from icecream import ic
 
-def preprocess(d):
-    d.pop('samples')  # drop key since it had different dimension
-    
+def _remove_extrakeys(d):
+    if 'samples' in d.keys():
+        d.pop('samples')
+    return d
+
+def _cast_numpy(d):
     for k in d.keys():
-        d[k] = d[k].tolist() # convert numpy arrays to list
+        d[k] = d[k].tolist() 
+    return d
+
+def preprocess(d):
+    d = _remove_extrakeys(d)  # drop key since it has different dimension
+    d = _cast_numpy(d) # convert numpy arrays to list
     
     return pd.DataFrame.from_dict(d) # return dataframe
 
@@ -19,5 +27,3 @@ if __name__ == "__main__":
     df = preprocess(dataset)
     results = search(df)
     ic(results)
-
-
